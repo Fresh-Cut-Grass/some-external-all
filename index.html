@@ -3,10 +3,14 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Some droppable form App</title>
+  <title>Formulaire personne physique</title>
 
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
-        integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+  <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+        integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I"
+        crossorigin="anonymous">
+  <link rel="stylesheet"
+        href="lib/jsonViewer/jsonViewer.css">
 
   <style>
       body {
@@ -27,46 +31,41 @@
           flex-direction: column;
       }
 
-      pre {
-          background: #e1e1e1;
-          overflow: auto;
-          max-height: 40vh;
-          white-space: break-spaces;
-          margin-top: unset !important;
-          margin-bottom: unset !important;
-        }
+      #before, #after {
+          height: 45vh;
+      }
 
-        .is-dragging {
-            box-shadow: grey 2px 2px;
-        }
+      .is-dragging {
+          box-shadow: grey 2px 2px;
+      }
 
-        #drag-overlay {
-            display: none;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(173, 169, 169, 0.95);
-            z-index: 2;
-        }
+      #drag-overlay {
+          display: none;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(173, 169, 169, 0.95);
+          z-index: 2;
+      }
 
-        #drag-overlay #dashed-square {
-            outline: 2px dashed grey;
-            position: absolute;
-            margin: 0;
-            top: 5%;
-            left: 5%;
-            width: 90%;
-            height: 90%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+      #drag-overlay #dashed-square {
+          outline: 2px dashed grey;
+          position: absolute;
+          margin: 0;
+          top: 5%;
+          left: 5%;
+          width: 90%;
+          height: 90%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+      }
 
-        .is-dragging #drag-overlay {
-            display: block;
-        }
+      .is-dragging #drag-overlay {
+          display: block;
+      }
 </style>
 </head>
 
@@ -85,7 +84,7 @@
   </div>
 
   <form id="form" onsubmit="handleSubmit(event)" action="" class="m-auto" style="max-width:800px">
-    <h3 class="my-4" style="color: #113E9F">Formulaire</h3>
+    <h3 class="my-4" style="color: #113E9F">Formulaire Personne</h3>
     <hr class="my-4" />
     <div class="form-group mb-3 row">
       <label for="id2" class="col-md-5 col-form-label">id</label>
@@ -112,7 +111,7 @@
       </div>
     </div>
     <div class="form-group mb-3 row">
-      <label class="col-md-5 col-form-label">Sexe</label>
+      <label class="col-md-5 col-form-label">Genre</label>
       <div class="col-md-7">
         <div class="form-check custom-control custom-radio">
           <input class="form-check-input custom-control-input"
@@ -189,9 +188,7 @@
 <div id="code-container">
   <div>
     <h5 class="my-2" style="color: #113E9F">Before</h5>
-    <code>
-      <pre id="before"></pre>
-    </code>
+      <div id="before"></div>
   </div>
   <div>
     <h5 class="my-2" style="color: #113E9F">After</h5>
@@ -202,8 +199,9 @@
 </div>
 
 </body>
-
+<script type="text/javascript" src="lib/jsonViewer/jsonViewer.js"></script>
 <script type="text/javascript">
+
     const formContainerRef = document.getElementById('form-container');
     const formRef = document.getElementById('form');
     const beforeRef = document.getElementById('before');
@@ -289,6 +287,11 @@
 
     // fill form with an entity's data
     const fillFromWithData = (entity) => {
+        if (entity.type !== 1) {
+            window.alert("L'entité n'est pas une personne physique")
+            return;
+        }
+
         parsedData = {...entity};
         // blacklist
         delete parsedData.__properties;
@@ -353,8 +356,24 @@
                 return acc;
             }, {});
 
-        beforeRef.innerText = JSON.stringify(parsedData, null, 2);
-        afterRef.innerText = JSON.stringify(formData, null, 2);
+        // beforeRef.innerText = JSON.stringify(parsedData, null, 2);
+        beforeRef.innerHTML = '';
+        new JsonViewer({
+            container: beforeRef,
+            data: JSON.stringify(parsedData),
+            theme: 'dark',
+            expand: true
+        });
+
+        // afterRef.innerText = JSON.stringify(formData, null, 2);
+        afterRef.innerHTML = '';
+        new JsonViewer({
+            container: afterRef,
+            data: JSON.stringify(formData),
+            theme: 'dark',
+            expand: true
+        });
+
         return false;
     }
 
