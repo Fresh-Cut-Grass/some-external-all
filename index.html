@@ -296,6 +296,8 @@
         // blacklist
         delete parsedData.__properties;
         delete parsedData.avatar;
+        delete parsedData.files;
+        delete parsedData.related;
 
         Object.keys(API_MAPPING).forEach((novaApiKey) => {
             const novaValue = entity[novaApiKey];
