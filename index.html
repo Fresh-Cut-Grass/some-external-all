@@ -201,7 +201,7 @@
 </body>
 <script type="text/javascript" src="lib/jsonViewer/jsonViewer.js"></script>
 <script type="text/javascript">
-
+    const LOCAL_STORAGE_KEY = "https://www.youtube.com/watch?v=iik25wqIuFo";
     const formContainerRef = document.getElementById('form-container');
     const formRef = document.getElementById('form');
     const beforeRef = document.getElementById('before');
@@ -360,12 +360,14 @@
 
         // beforeRef.innerText = JSON.stringify(parsedData, null, 2);
         beforeRef.innerHTML = '';
+        const stringifiedFormData = JSON.stringify(parsedData);
         new JsonViewer({
             container: beforeRef,
-            data: JSON.stringify(parsedData),
+            data: stringifiedFormData,
             theme: 'dark',
             expand: true
         });
+        localStorage.setItem(LOCAL_STORAGE_KEY, stringifiedFormData);
 
         // afterRef.innerText = JSON.stringify(formData, null, 2);
         afterRef.innerHTML = '';
@@ -380,7 +382,18 @@
     }
 
     window.onload = () => {
-        handleSubmit();
+        try {
+            const persistedData = localStorage.getItem(LOCAL_STORAGE_KEY)
+            if (!persistedData)
+                return;
+            const data = JSON.parse(persistedData);
+            if (data.type !== "1" && data.type !== 1)
+                return;
+            fillFromWithData(data);
+            handleSubmit();
+        } catch (e) {
+            console.error("Failed to load persisted data", e);
+        }
     }
 
 </script>
