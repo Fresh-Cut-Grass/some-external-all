@@ -5,395 +5,378 @@
   <meta charset="UTF-8">
   <title>Formulaire personne physique</title>
 
-  <link rel="stylesheet"
-        href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
-        integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I"
-        crossorigin="anonymous">
-  <link rel="stylesheet"
-        href="lib/jsonViewer/jsonViewer.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+    integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+  <link rel="stylesheet" href="lib/jsonViewer/jsonViewer.css">
 
   <style>
-      body {
-          background: white;
-          display: flex;
-          align-items: start;
-      }
+    body {
+      background: white;
+      display: flex;
+      align-items: start;
+    }
 
-      #form-container {
-          position: relative;
-      }
+    #form-container {
+      position: relative;
+    }
 
-      #code-container {
-          height: 100%;
-          display: flex;
-          flex-direction: column;
-          visibility: hidden;
-      }
+    #code-container {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      visibility: hidden;
+    }
 
-      #before, #after {
-          height: 45vh;
-      }
+    #before,
+    #after {
+      height: 45vh;
+    }
 
-      .is-dragging {
-          box-shadow: grey 2px 2px;
-      }
+    .is-dragging {
+      box-shadow: grey 2px 2px;
+    }
 
-      #drag-overlay {
-          display: none;
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: rgba(173, 169, 169, 0.95);
-          z-index: 2;
-      }
+    #drag-overlay {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(173, 169, 169, 0.95);
+      z-index: 2;
+    }
 
-      #drag-overlay #dashed-square {
-          outline: 2px dashed grey;
-          position: absolute;
-          margin: 0;
-          top: 5%;
-          left: 5%;
-          width: 90%;
-          height: 90%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-      }
+    #drag-overlay #dashed-square {
+      outline: 2px dashed grey;
+      position: absolute;
+      margin: 0;
+      top: 5%;
+      left: 5%;
+      width: 90%;
+      height: 90%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-      .is-dragging #drag-overlay {
-          display: block;
-      }
-</style>
+    .is-dragging #drag-overlay {
+      display: block;
+    }
+  </style>
 </head>
 
 <body id="body">
 
-<div class="container" id="form-container">
+  <div class="container" id="form-container">
 
-  <div
-      id="drag-overlay"
-      ondragover="preventDefault(event)"
-      ondrop="handleDrop(event)"
-  >
-    <div id="dashed-square">
-      Drop your data here
+    <div id="drag-overlay" ondragover="preventDefault(event)" ondrop="handleDrop(event)">
+      <div id="dashed-square">
+        Drop your data here
+      </div>
     </div>
+
+    <form id="form" onsubmit="handleSubmit(event)" action="" class="m-auto" style="max-width:800px">
+      <h3 class="my-4" style="color: #113E9F">Formulaire Personne</h3>
+      <hr class="my-4" />
+      <div class="form-group mb-3 row">
+        <label for="id2" class="col-md-5 col-form-label">id</label>
+        <div class="col-md-7">
+          <input type="text" class="form-control form-control-lg" id="id2" name="__id" readonly>
+        </div>
+      </div>
+      <div class="form-group mb-3 row">
+        <label for="label3" class="col-md-5 col-form-label">Label</label>
+        <div class="col-md-7">
+          <input type="text" class="form-control form-control-lg" id="label3" name="__label">
+        </div>
+      </div>
+      <div class="form-group mb-3 row">
+        <label for="nom-prenom4" class="col-md-5 col-form-label">Prénom</label>
+        <div class="col-md-7">
+          <input type="text" class="form-control form-control-lg" id="nom-prenom4" name="__last_name" />
+        </div>
+      </div>
+      <div class="form-group mb-3 row">
+        <label for="nom-prenom4" class="col-md-5 col-form-label">Nom</label>
+        <div class="col-md-7">
+          <input type="text" class="form-control form-control-lg" id="nom-prenom4" name="__first_names" />
+        </div>
+      </div>
+      <div class="form-group mb-3 row">
+        <label class="col-md-5 col-form-label">Genre</label>
+        <div class="col-md-7">
+          <div class="form-check custom-control custom-radio">
+            <input class="form-check-input custom-control-input" type="radio" name="__gender" id="sexe5_2" value="m" />
+            <label class="form-check-label custom-control-label" for="sexe5_2">Homme</label>
+          </div>
+          <div class="form-check custom-control custom-radio">
+            <input class="form-check-input custom-control-input" type="radio" name="__gender" id="sexe5_3" value="f" />
+            <label class="form-check-label custom-control-label" for="sexe5_3">Femme</label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group mb-3 row">
+        <label for="nationalites6" class="col-md-5 col-form-label">Nationalité(s)</label>
+        <div class="col-md-7">
+          <input type="text" class="form-control form-control-lg" id="nationalites6" name="__nat">
+        </div>
+      </div>
+      <div class="form-group mb-3 row">
+        <label for="date-de-naissance7" class="col-md-5 col-form-label">
+          Date de naissance
+        </label>
+        <div class="col-md-7">
+          <input type="text" class="form-control form-control-lg" id="date-de-naissance7" name="__birth">
+        </div>
+      </div>
+      <div class="form-group mb-3 row">
+        <label for="references9" class="col-md-5 col-form-label">Référence(s)</label>
+        <div class="col-md-7">
+          <input type="text" class="form-control form-control-lg" id="references9" name="__references">
+        </div>
+      </div>
+
+      <div class="form-group mb-3 row">
+        <label for="references10" class="col-md-5 col-form-label">Statut matrimonial</label>
+        <div class="col-md-7">
+          <textarea class="form-control form-control-lg" id="references10" name="__married"></textarea>
+        </div>
+      </div>
+
+      <div class="form-group mb-3 row">
+        <label for="references10" class="col-md-5 col-form-label">Profession</label>
+        <div class="col-md-7">
+          <textarea class="form-control form-control-lg" id="references10" name="__profession"></textarea>
+        </div>
+      </div>
+
+      <div class="form-group mb-3 row">
+        <label for="references10" class="col-md-5 col-form-label">Adresse(s)</label>
+        <div class="col-md-7">
+          <textarea class="form-control form-control-lg" id="references10" name="__adress"></textarea>
+        </div>
+      </div>
+    </form>
   </div>
 
-  <form id="form" onsubmit="handleSubmit(event)" action="" class="m-auto" style="max-width:800px">
-    <h3 class="my-4" style="color: #113E9F">Formulaire Personne</h3>
-    <hr class="my-4" />
-    <div class="form-group mb-3 row">
-      <label for="id2" class="col-md-5 col-form-label">id</label>
-      <div class="col-md-7">
-        <input type="text" class="form-control form-control-lg" id="id2" name="__id" readonly>
-      </div>
-    </div>
-    <div class="form-group mb-3 row">
-      <label for="label3" class="col-md-5 col-form-label">Label</label>
-      <div class="col-md-7">
-        <input type="text" class="form-control form-control-lg" id="label3" name="__label">
-      </div>
-    </div>
-    <div class="form-group mb-3 row">
-      <label for="nom-prenom4" class="col-md-5 col-form-label">Nom Prénom</label>
-      <div class="col-md-7">
-        <input
-            type="text"
-            class="form-control form-control-lg"
-            id="nom-prenom4"
-            name="__names"
-
-        />
-      </div>
-    </div>
-    <div class="form-group mb-3 row">
-      <label class="col-md-5 col-form-label">Genre</label>
-      <div class="col-md-7">
-        <div class="form-check custom-control custom-radio">
-          <input class="form-check-input custom-control-input"
-                 type="radio" name="__gender" id="sexe5_2"
-                 value="1" />
-          <label class="form-check-label custom-control-label" for="sexe5_2">Homme</label>
-        </div>
-        <div class="form-check custom-control custom-radio">
-          <input class="form-check-input custom-control-input"
-                 type="radio" name="__gender" id="sexe5_3" value="2" />
-          <label class="form-check-label custom-control-label" for="sexe5_3">Femme</label>
-        </div>
-      </div>
-    </div>
-    <div class="form-group mb-3 row">
-      <label for="nationalites6" class="col-md-5 col-form-label">Nationalité(s)</label>
-      <div class="col-md-7">
-        <input type="text" class="form-control form-control-lg" id="nationalites6"
-               name="__nat">
-      </div>
-    </div>
-    <div class="form-group mb-3 row">
-      <label for="date-de-naissance7" class="col-md-5 col-form-label">
-        Date de naissance
-      </label>
-      <div class="col-md-7">
-        <input
-            type="date"
-            class="form-control form-control-lg"
-            id="date-de-naissance7"
-            name="__birth">
-      </div>
-    </div>
-    <div class="form-group mb-3 row">
-      <label for="date-de-deces8" class="col-md-5 col-form-label">Date de décès</label>
-      <div class="col-md-7">
-        <input type="date" class="form-control form-control-lg" id="date-de-deces8"
-               name="__death">
-      </div>
-    </div>
-
-    <div class="form-group mb-3 row">
-      <label for="references9" class="col-md-5 col-form-label">Référence(s)</label>
-      <div class="col-md-7">
-        <input
-            type="text"
-            class="form-control form-control-lg"
-            id="references9"
-            name="__references"
-        >
-      </div>
-    </div>
-
-    <div class="form-group mb-3 row">
-      <label for="references10" class="col-md-5 col-form-label">Adresse(s)</label>
-      <div class="col-md-7">
-        <textarea
-            class="form-control form-control-lg"
-            id="references10"
-            name="__adresses"
-        ></textarea>
-      </div>
-    </div>
-
-    <div class="form-group mb-3 row">
-      <label for="data13" class="col-md-5 col-form-label">Description</label>
-      <div class="col-md-7">
-        <textarea class="form-control form-control-lg" id="data13" name="__desc"></textarea>
-      </div>
-    </div>
-  </form>
-</div>
-
-<div id="code-container">
-  <div>
-    <h5 class="my-2" style="color: #113E9F">Before</h5>
+  <div id="code-container">
+    <div>
+      <h5 class="my-2" style="color: #113E9F">Before</h5>
       <div id="before"></div>
-  </div>
-  <div>
-    <h5 class="my-2" style="color: #113E9F">After</h5>
-    <code>
+    </div>
+    <div>
+      <h5 class="my-2" style="color: #113E9F">After</h5>
+      <code>
       <pre id="after"></pre>
     </code>
+    </div>
   </div>
-</div>
 
 </body>
 <script type="text/javascript" src="lib/jsonViewer/jsonViewer.js"></script>
 <script type="text/javascript">
-    const LOCAL_STORAGE_KEY = "data";
-    const formContainerRef = document.getElementById('form-container');
-    const formRef = document.getElementById('form');
-    const beforeRef = document.getElementById('before');
-    const afterRef = document.getElementById('after');
+  const LOCAL_STORAGE_KEY = "data";
+  const formContainerRef = document.getElementById('form-container');
+  const formRef = document.getElementById('form');
+  const beforeRef = document.getElementById('before');
+  const afterRef = document.getElementById('after');
 
-    let parsedData = {};
+  let parsedData = {};
 
-    // giga secure :')
-    const DRAG_EVENT_TYPES = {
-        searchResultEntity: 'application/nova-search-result-entity',
-    };
+  // giga secure :')
+  const DRAG_EVENT_TYPES = {
+    searchResultEntity: 'application/nova-search-result-entity',
+  };
 
 
-    // keys are from Nova API (EntityDto), values are from the "external App's API"
-    const API_MAPPING = {
-        id: {
-            extKey: "__id",
-            type: 'string',
-        },
-        label: {
-            extKey: "__label",
-            type: 'string',
-        },
-        names: {
-            extKey: "__names",
-            type: 'string',
-        },
-        sex: {
-            extKey: "__gender",
-            type: 'string',
-        },
-        nationalities: {
-            extKey: "__nat",
-            type: 'string',
-        },
-        reference: {
-            extKey: "__references",
-            type: 'string',
-        },
-        birthDate: {
-            extKey: "__birth",
-            type: 'date',
-        },
-        deathDate: {
-            extKey: "__death",
-            type: 'date',
-        },
-        addresses: {
-            extKey: "__adresses",
-            type: 'string',
-        },
-        description: {
-            extKey: "__desc",
-            type: 'string',
-        },
+  // keys are from Nova API (EntityDto), values are from the "external App's API"
+  const API_MAPPING = {
+    id: {
+      extKey: "__id",
+      type: 'string',
+    },
+    label: {
+      extKey: "__label",
+      type: 'string',
+    },
+    NOM: {
+      extKey: "__last_name",
+      type: 'string',
+    },
+    PRENOMS: {
+      extKey: "__first_names",
+      type: 'string',
+    },
+    GENRE: {
+      extKey: "__gender",
+      type: 'string',
+    },
+    NATIONALITE: {
+      extKey: "__nat",
+      type: 'string',
+    },
+    REFERENCE: {
+      extKey: "__references",
+      type: 'string',
+    },
+    DATE_DE_NAISSANCE: {
+      extKey: "__birth",
+      type: 'string',
+    },
+    STATUT_MATRIMONIAL: {
+      extKey: "__married",
+      type: 'string',
+    },
+    PROFESSION: {
+      extKey: "__profession",
+      type: 'string',
+    },
+    ADRESSE: {
+      extKey: "__adress",
+      type: 'string',
+    },
+  }
+
+  const preventDefault = (e) => e.preventDefault();
+
+  const displayDragOverlay = (e) => {
+    e.preventDefault();
+    formContainerRef.classList.add('is-dragging');
+  }
+  const hideDragOverlay = (e) => {
+    e.preventDefault();
+    formContainerRef.classList.remove('is-dragging');
+  }
+
+  const handleDrop = (e) => {
+    hideDragOverlay(e);
+    const entitiesAsString = e.dataTransfer.getData(DRAG_EVENT_TYPES.searchResultEntity);
+
+    if (!entitiesAsString)
+      return;
+
+    const parsedEntities = JSON.parse(entitiesAsString);
+    if (Array.isArray(parsedEntities) && parsedEntities.length)
+      fillFromWithData(parsedEntities[0]);
+  }
+
+  document.ondragenter = (e) => displayDragOverlay(e);
+  document.onmouseleave = (e) => hideDragOverlay(e);
+
+  // fill form with an entity's data
+  const fillFromWithData = (entity) => {
+    console.log(entity);
+    if (entity._DATATYPE !== 'entite-personne_physique') {
+      //  window.alert("L'entité n'est pas une personne physique")
+      return;
     }
 
-    const preventDefault = (e) => e.preventDefault();
+    parsedData = { ...entity };
+    // blacklist
+    delete parsedData.__properties;
+    delete parsedData.avatar;
+    delete parsedData.files;
+    delete parsedData.related;
 
-    const displayDragOverlay = (e) => {
-        e.preventDefault();
-        formContainerRef.classList.add('is-dragging');
-    }
-    const hideDragOverlay = (e) => {
-        e.preventDefault();
-        formContainerRef.classList.remove('is-dragging');
-    }
+    Object.keys(API_MAPPING).forEach((novaApiKey) => {
+      const novaValue = entity[novaApiKey];
+      const { extKey, type } = API_MAPPING[novaApiKey];
+      // /!\ ATTENTION /!\
+      // L'auto-formatage a tendance à rajouter un espace entre les deux `[][]`,
+      // ce qui fausse tout
+      const inputRef = document.querySelector(
+        `[name="${extKey}"]${extKey === API_MAPPING.GENRE.extKey
+          ? `[value="${novaValue}"]`
+          : ''
+        }`
+      );
 
-    const handleDrop = (e) => {
-        hideDragOverlay(e);
-        const entitiesAsString = e.dataTransfer.getData(DRAG_EVENT_TYPES.searchResultEntity);
+      if (!inputRef)
+        return;
 
-        if (!entitiesAsString)
-            return;
+      const formattedValue = getDtoValue(novaValue);
+      if (extKey === API_MAPPING.GENRE.extKey)
+        inputRef.checked = true;
+      else
+        inputRef.value = type !== 'date'
+          ? formattedValue
+          : convertTimestampToDateInputString(formattedValue);
+    })
 
-        const parsedEntities = JSON.parse(entitiesAsString);
-        if (Array.isArray(parsedEntities) && parsedEntities.length)
-            fillFromWithData(parsedEntities[0]);
-    }
+    handleSubmit();
+  }
 
-    document.ondragenter = (e) => displayDragOverlay(e);
-    document.onmouseleave = (e) => hideDragOverlay(e);
+  const getDtoValue = (value) => {
+    if (!value)
+      return '';
+    return value;
+    return typeof value === 'object'
+      ? Array.isArray(value)
+        ? value.map(getDtoValue).join('; ')
+        : getDtoValue(value.label || value.value)
+      : value;
+  }
 
-    // fill form with an entity's data
-    const fillFromWithData = (entity) => {
-        if (entity.type !== 1) {
-            window.alert("L'entité n'est pas une personne physique")
-            return;
-        }
+  const convertTimestampToDateInputString = (number) => {
+    return number
+      ? new Date(number).toISOString().split('T')[0]
+      : ''
+  };
 
-        parsedData = {...entity};
-        // blacklist
-        delete parsedData.__properties;
-        delete parsedData.avatar;
-        delete parsedData.files;
-        delete parsedData.related;
-
-        Object.keys(API_MAPPING).forEach((novaApiKey) => {
-            const novaValue = entity[novaApiKey];
-            const {extKey, type} = API_MAPPING[novaApiKey];
-            // /!\ ATTENTION /!\
-            // L'auto-formatage a tendance à rajouter un espace entre les deux `[][]`,
-            // ce qui fausse tout
-            const inputRef = document.querySelector(
-                `[name="${extKey}"]${
-                    extKey === API_MAPPING.sex.extKey
-                    ? `[value="${novaValue}"]`
-                    : ''
-                }`
-            );
-
-            if (!inputRef)
-                return;
-
-            const formattedValue = getDtoValue(novaValue);
-            if (extKey === API_MAPPING.sex.extKey)
-                inputRef.checked = true;
-            else
-                inputRef.value = type !== 'date'
-                    ? formattedValue
-                    : convertTimestampToDateInputString(formattedValue);
-        })
-
-        handleSubmit();
+  const handleSubmit = (e) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
     }
 
-    const getDtoValue = (value) => {
-        if (!value)
-            return '';
-        return typeof value === 'object'
-            ? Array.isArray(value)
-                ? value.map(getDtoValue).join('; ')
-                : getDtoValue(value.label || value.value)
-            : value;
+    const formData = Array.from(formRef.querySelectorAll('[name]'))
+      .reduce((acc, curr) => {
+        if (curr.name !== API_MAPPING.GENRE.extKey || curr.checked)
+          acc[curr.name] = curr.value;
+        else
+          acc[curr.name] = acc[curr.name] ?? '';
+
+        return acc;
+      }, {});
+
+    // beforeRef.innerText = JSON.stringify(parsedData, null, 2);
+    beforeRef.innerHTML = '';
+    const stringifiedFormData = JSON.stringify(parsedData);
+    new JsonViewer({
+      container: beforeRef,
+      data: stringifiedFormData,
+      theme: 'dark',
+      expand: true
+    });
+    localStorage.setItem(LOCAL_STORAGE_KEY, stringifiedFormData);
+
+    // afterRef.innerText = JSON.stringify(formData, null, 2);
+    afterRef.innerHTML = '';
+    new JsonViewer({
+      container: afterRef,
+      data: JSON.stringify(formData),
+      theme: 'dark',
+      expand: true
+    });
+
+    return false;
+  }
+
+  window.onload = () => {
+    try {
+      const persistedData = localStorage.getItem(LOCAL_STORAGE_KEY)
+      if (!persistedData)
+        return;
+      const data = JSON.parse(persistedData);
+      if (data.type !== "1" && data.type !== 1)
+        return;
+      fillFromWithData(data);
+      handleSubmit();
+    } catch (e) {
+      console.error("Failed to load persisted data", e);
     }
-
-    const convertTimestampToDateInputString = (number) => number
-        ? new Date(number).toISOString().split('T')[0]
-        : '';
-
-    const handleSubmit = (e) => {
-        if (e) {
-            e.preventDefault();
-            e.stopPropagation();
-        }
-
-        const formData = Array.from(formRef.querySelectorAll('[name]'))
-            .reduce((acc, curr) => {
-                if (curr.name !== API_MAPPING.sex.extKey || curr.checked)
-                    acc[curr.name] = curr.value;
-                else
-                    acc[curr.name] = acc[curr.name] ?? '';
-
-                return acc;
-            }, {});
-
-        // beforeRef.innerText = JSON.stringify(parsedData, null, 2);
-        beforeRef.innerHTML = '';
-        const stringifiedFormData = JSON.stringify(parsedData);
-        new JsonViewer({
-            container: beforeRef,
-            data: stringifiedFormData,
-            theme: 'dark',
-            expand: true
-        });
-        localStorage.setItem(LOCAL_STORAGE_KEY, stringifiedFormData);
-
-        // afterRef.innerText = JSON.stringify(formData, null, 2);
-        afterRef.innerHTML = '';
-        new JsonViewer({
-            container: afterRef,
-            data: JSON.stringify(formData),
-            theme: 'dark',
-            expand: true
-        });
-
-        return false;
-    }
-
-    window.onload = () => {
-        try {
-            const persistedData = localStorage.getItem(LOCAL_STORAGE_KEY)
-            if (!persistedData)
-                return;
-            const data = JSON.parse(persistedData);
-            if (data.type !== "1" && data.type !== 1)
-                return;
-            fillFromWithData(data);
-            handleSubmit();
-        } catch (e) {
-            console.error("Failed to load persisted data", e);
-        }
-    }
+  }
 
 </script>
 
